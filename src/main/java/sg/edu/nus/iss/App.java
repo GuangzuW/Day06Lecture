@@ -1,7 +1,10 @@
 package sg.edu.nus.iss;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Hello world!
@@ -68,38 +71,73 @@ public final class App {
         // executorService.execute(mRI5);
         // executorService.shutdown();
 
-        MyRunnableInterface <Integer> addOperation=(a,b)->{
-            return a+b;
-        };
+        // MyRunnableInterface <Integer> addOperation=(a,b)->{
+        //     return a+b;
+        // };
     
 
-        MyRunnableInterface<Integer> multiplyOperation = (a,b)->{
-            return a*b;
-        };
+        // MyRunnableInterface<Integer> multiplyOperation = (a,b)->{
+        //     return a*b;
+        // };
 
-        MyRunnableInterface<Integer> minusOperation = (a,b)->{
-            return a-b;
-        };
+        // MyRunnableInterface<Integer> minusOperation = (a,b)->{
+        //     return a-b;
+        // };
 
-        MyRunnableInterface<String> concatenateOperation = (a,b)->{
-            return a+b;
-        };
+        // MyRunnableInterface<String> concatenateOperation = (a,b)->{
+        //     return a+b;
+        // };
 
-        myMessageInterface printString=(a)->{
-            System.out.println(a);
-        };
-
-
-        System.out.println("addOperation: "+ addOperation.process(1, 2));
-        System.out.println("multiplyOperation: "+ multiplyOperation.process(5, 2));
-        System.out.println("multiplyOperation: "+ minusOperation.process(5, 2));
-        System.out.println("multiplyOperation: "+ concatenateOperation.process("aaaaaaaa", "bbbbbbbb"));
-        printString.printMessage("Hello World!");
+        // myMessageInterface printString=(a)->{
+        //     System.out.println(a);
+        // };
 
 
+        // System.out.println("addOperation: "+ addOperation.process(1, 2));
+        // System.out.println("multiplyOperation: "+ multiplyOperation.process(5, 2));
+        // System.out.println("multiplyOperation: "+ minusOperation.process(5, 2));
+        // System.out.println("multiplyOperation: "+ concatenateOperation.process("aaaaaaaa", "bbbbbbbb"));
+        // printString.printMessage("Hello World!");
+
+        //List of employee
+
+        List<Employee> employee =new ArrayList<Employee>();
+
+        employee.add(new Employee(1, "1a", "chen", 2000));
+        employee.add(new Employee(2, "2a", "zhen", 2000));
+        employee.add(new Employee(3, "3a", "chan", 2000));
+        employee.add(new Employee(4, "4a", "hen", 2000));
+        employee.add(new Employee(5, "5a", "zhu", 2000));
+        employee.add(new Employee(6, "6a", "chang", 2000));
+
+        employee.forEach(emp->{
+            System.out.println(emp);
+        });
+
+        List<Employee> filteredEmployees = employee.stream().filter(emp->emp.getLastName().contains("ch"))
+        .collect(Collectors.toList());
+        filteredEmployees.forEach(emp->System.out.println(emp));
+
+        //employee.sort(Comparator.comparing(e->e.getFirstName()));
+        // employee.sort(Comparator.comparing(Employee::getFirstName));
+        // employee.sort(Comparator.comparing(Employee::getFirstName).reversed());
+
+        // Comparator<Employee> compare=Comparator.comparing(e->e.getFirstName());
+        // employee.sort(compare.reversed());
 
 
+        // employee.forEach(emp->{
+        //     System.out.println(emp);
+        // });
 
+
+        Comparator<Employee> groupByComparator=Comparator.comparing(Employee::getFirstName).thenComparing(Employee::getLastName);
+
+        employee.sort(groupByComparator);
+        employee.forEach(emp->{
+            System.out.println(emp);
+        });
+    
     }
 
 
