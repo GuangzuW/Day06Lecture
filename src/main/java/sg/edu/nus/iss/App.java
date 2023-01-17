@@ -60,14 +60,48 @@ public final class App {
 
 //cached thread pull(depend on you computer processor)
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(mRI1);
-        executorService.execute(mRI2);
-        executorService.execute(mRI3);
-        executorService.execute(mRI4);
-        executorService.execute(mRI5);
-        executorService.shutdown();
+        // ExecutorService executorService = Executors.newCachedThreadPool();
+        // executorService.execute(mRI1);
+        // executorService.execute(mRI2);
+        // executorService.execute(mRI3);
+        // executorService.execute(mRI4);
+        // executorService.execute(mRI5);
+        // executorService.shutdown();
+
+        MyRunnableInterface <Integer> addOperation=(a,b)->{
+            return a+b;
+        };
+    
+
+        MyRunnableInterface<Integer> multiplyOperation = (a,b)->{
+            return a*b;
+        };
+
+        MyRunnableInterface<Integer> minusOperation = (a,b)->{
+            return a-b;
+        };
+
+        MyRunnableInterface<String> concatenateOperation = (a,b)->{
+            return a+b;
+        };
+
+        myMessageInterface printString=(a)->{
+            System.out.println(a);
+        };
+
+
+        System.out.println("addOperation: "+ addOperation.process(1, 2));
+        System.out.println("multiplyOperation: "+ multiplyOperation.process(5, 2));
+        System.out.println("multiplyOperation: "+ minusOperation.process(5, 2));
+        System.out.println("multiplyOperation: "+ concatenateOperation.process("aaaaaaaa", "bbbbbbbb"));
+        printString.printMessage("Hello World!");
+
+
+
+
+
     }
+
 
 
 
